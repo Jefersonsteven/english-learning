@@ -1,0 +1,14 @@
+[
+    {
+        "label": "Vowels",
+        "href": "/vowels"
+    },
+    {
+        "label": "Consonants",
+        "href": "/consonants"
+    },
+    {
+        "label": "Numbers",
+        "href": "/numbers"
+    }
+]
