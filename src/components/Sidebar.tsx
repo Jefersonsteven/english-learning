@@ -1,24 +1,37 @@
-import Image from "next/image"
+'use client'
 import Link from "next/link"
 import React from "react"
 import siderBarOptions from "@/data/sliderbarOptions.json"
+import clsx from "clsx"
+
+import { usePathname } from "next/navigation"
 
 interface SideBarOptionProps {
-    optionName: string
+    optionName: {
+        label: string
+        href: string
+    }
 }
 
-const SideBarOption: React.FC<SideBarOptionProps> = ({ optionName }) => {
+
+const SideBarOption: React.FC<SideBarOptionProps> = ({ optionName }, x) => {
+    const route = usePathname()
     return (
         <div
-            title={optionName}
-            className="bg-[rgb(0,0,0,0.45)] hover:bg-[rgb(0,0,0,0.80)] rounded-lg"
+            title={optionName.label}
+            className={clsx(
+                'rounded-lg transition-all duration-300 ease-in-out',
+                {
+                    'bg-[rgba(155,64,224,0.8)] text-white': route === optionName.href,
+                    'bg-[rgb(0,0,0,0.45)] hover:bg-[rgb(0,0,0,0.80)] text-[rgba(191,191,191,0.45)]': route !== optionName.href,
+                })}
         >
             <Link
-                href={optionName}
-                className="text-[rgba(191,191,191,0.45)] hover:text-white font-bold hover:underline"
+                href={optionName.href}
+                className=" hover:text-white font-bold hover:underline"
             >
                 <p className="p-2 overflow-hidden text-ellipsis">
-                    {optionName}
+                    {optionName.label}
                 </p>
             </Link>
         </div>
@@ -28,10 +41,10 @@ const SideBarOption: React.FC<SideBarOptionProps> = ({ optionName }) => {
 
 export const SideBar = () => {
     return (
-        <div className="bg-sky-600 h-screen w-1/6 p-4 flex flex-col gap-2 absolute overflow-scroll overflow-x-hidden">
+        <div className=" bg-violet-950 h-screen w-1/6 p-4 flex flex-col gap-2 absolute overflow-auto overflow-x-hidden">
             {
                 siderBarOptions.map((option) => (
-                    <SideBarOption key={option.label} optionName={option.label} />
+                    <SideBarOption key={option.label} optionName={option} />
                 ))
             }
         </div>

@@ -1,5 +1,9 @@
 [
     {
+        "label": "Home",
+        "href": "/"
+    },
+    {
         "label": "Vowels",
         "href": "/vowels"
     },
